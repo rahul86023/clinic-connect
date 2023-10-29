@@ -1,19 +1,50 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import Home from "./Home";
-import ReadUser from "./ReadUser";
-import UpdateUser from "./UpdateUser";
-import AddUser from "./AddUser";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import "./index.css";
+import Login from "./features/account/Login";
+import { PublicLayout } from "./app/components/PublicLayout";
+import { PrivateLayout } from "./app/components/PrivateLayout";
+import ClientContainer from "./features/client/ClientContainer";
+import ClinicianContainer from "./features/clinician/ClinicianContainer";
+import { List as ClinicianList } from "./features/clinician/List";
+import { List as ClientList } from "./features/client/List";
+import { Details as ClinicianDetails } from "./features/clinician/Details";
+import { Details as ClientDetails } from "./features/client/Details";
+import Create from "./features/client/Create";
+import { Create as CreateClinician } from "./features/clinician/Create";
+import  Edit  from "./features/client/Edit";
+import { Edit as EditClinician } from "./features/clinician/Edit";
+import Error from "./app/components/Error";
+
 function App() {
   return (
-    <div>
+    <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/adduser" element={<AddUser />} />
-        <Route path="/readuser/:id" element={<ReadUser />} />
-        <Route path="/updateuser/:id" element={<UpdateUser />} />
+        {/* Top-level layout */}
+        <Route path="/public" element={<PublicLayout />}>
+          <Route path="login" element={<Login />} />
+        </Route>
+
+        <Route path="/private" element={<PrivateLayout />}>
+          <Route path="client" element={<ClientContainer />}>
+            <Route index element={<ClientList />} />
+            <Route path="details/:id" element={<ClientDetails />} />
+            <Route path="create" element={<Create />} />
+            <Route path="edit/:id" element={<Edit />} />
+          </Route>
+
+          <Route path="clinician" element={<ClinicianContainer />}>
+            <Route index element={<ClinicianList />} />
+            <Route path="details/:id" element={<ClinicianDetails />} />
+            <Route path="create" element={<CreateClinician />} />
+            <Route path="edit/:id" element={<EditClinician />} />
+          </Route>
+        </Route>
+
+        <Route path="*" element={<Error />} />
       </Routes>
-    </div>
+    </Router>
   );
 }
 

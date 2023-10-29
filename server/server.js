@@ -40,6 +40,9 @@ const User = mongoose.model("User", userSchema);
 //client Schema
 const clientSchema = new mongoose.Schema(
   {
+    id: {
+      type: Number,
+    },
     firstName: {
       type: String,
       required: true,
@@ -193,7 +196,6 @@ const Client = mongoose.model("Client", clientSchema);
 
 module.exports = Client;
 //Clinician Schema
-const mongoose = require("mongoose");
 
 const clinicianSchema = new mongoose.Schema(
   {
@@ -272,48 +274,48 @@ const clinicianSchema = new mongoose.Schema(
         required: true,
       },
     },
-    locations: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Location", // Reference to a Location model if available
-      },
-    ],
-    locationsNotAcceptingNewPatients: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Location",
-      },
-    ],
-    specialities: [
-      {
-        type: String, // You can use a specific schema or model for specialities
-      },
-    ],
-    insurances: [
-      {
-        type: String, // You can use a specific schema or model for insurances
-      },
-    ],
-    supervisees: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Supervisee", // Reference to a Supervisee model if available
-      },
-    ],
-    licensedStates: [
-      {
-        type: String, // You can use a specific schema or model for states
-      },
-    ],
-    demographics: [
-      {
-        type: String, // You can use a specific schema or model for demographics
-      },
-    ],
-    supervisingProvider: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Provider", // Reference to a Provider model if available
-    },
+    // locations: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Location", // Reference to a Location model if available
+    //   },
+    // ],
+    // locationsNotAcceptingNewPatients: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Location",
+    //   },
+    // ],
+    // specialities: [
+    //   {
+    //     type: String, // You can use a specific schema or model for specialities
+    //   },
+    // ],
+    // insurances: [
+    //   {
+    //     type: String, // You can use a specific schema or model for insurances
+    //   },
+    // ],
+    // supervisees: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Supervisee", // Reference to a Supervisee model if available
+    //   },
+    // ],
+    // licensedStates: [
+    //   {
+    //     type: String, // You can use a specific schema or model for states
+    //   },
+    // ],
+    // demographics: [
+    //   {
+    //     type: String, // You can use a specific schema or model for demographics
+    //   },
+    // ],
+    // supervisingProvider: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Provider", // Reference to a Provider model if available
+    // },
   },
   { timestamps: true }
 );
