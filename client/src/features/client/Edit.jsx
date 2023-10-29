@@ -1,30 +1,23 @@
 import React, { useEffect } from "react";
-
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { editClientThunk } from "./editSlice";
 import { detailsOfClientsThunk } from "./detailsSlice";
 import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
- const Edit = () => {
+const Edit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { isFetching, isSuccess, isError, errorMessage } = useSelector(
-    (store) => store.editClient
-  );
-  const { client, status, loading } = useSelector(
-    (store) => store.detailsOfClient
-  );
+  const { isSuccess, isError, errorMessage } = useSelector((store) => store.editClient);
+  const { client, loading } = useSelector((store) => store.detailsOfClient);
+
   useEffect(() => {
     dispatch(detailsOfClientsThunk(id));
-  }, [id]);
-  useEffect(() => {
-    // if (isSuccess) {
-    //   navigate("/admin");
-    // }
-  }, []);
+  }, [dispatch, id]);
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("This field is required"),
@@ -42,9 +35,17 @@ import { useNavigate, useParams } from "react-router-dom";
     }),
     dob: Yup.string().required("This field is required"),
   });
-  const handleEditingAdmin = (formValue) => {
+
+  const handleEditingClient = (formValue) => {
     console.log(formValue);
-    dispatch(editClientThunk({ id, formValue }));
+    dispatch(editClientThunk({ id, formValue }))
+      .then(() => {
+        toast.success("Details Updated Successfully");
+        navigate("/private/client");
+      })
+      .catch((error) => {
+        toast.error("An error occurred while updating details: " + error.message);
+      });
   };
 
   return (
@@ -54,62 +55,45 @@ import { useNavigate, useParams } from "react-router-dom";
         <Formik
           initialValues={client}
           validationSchema={validationSchema}
-          onSubmit={handleEditingAdmin}
+          onSubmit={handleEditingClient}
           enableReinitialize={true}
-          //validate={(data, error) => console.log(data, error)}
         >
           <Form>
             <div className="form-group">
-              <label htmlFor="Name">First Name</label>
+              <label htmlFor="firstName">First Name</label>
               <Field name="firstName" type="text" className="form-control" />
             </div>
             <div className="form-group">
-              <label htmlFor="last">Last Name</label>
+              <label htmlFor="lastName">Last Name</label>
               <Field name="lastName" type="text" className="form-control" />
             </div>
             <div className="form-group">
-              <label htmlFor="last">Gender</label>
+              <label htmlFor="gender">Gender</label>
               <Field name="gender" type="text" className="form-control" />
             </div>
 
             <div className="form-group">
-              <label htmlFor="last">Primary Phone No.</label>
-              <Field
-                name="primaryPhoneNumber"
-                type="text"
-                className="form-control"
-              />
+              <label htmlFor="primaryPhoneNumber">Primary Phone No.</label>
+              <Field name="primaryPhoneNumber" type="text" className="form-control" />
             </div>
             <div className="form-group">
-              <label htmlFor="last">Address1</label>
-              <Field
-                name="address.address1"
-                type="text"
-                className="form-control"
-              />
+              <label htmlFor="address.address1">Address1</label>
+              <Field name="address.address1" type="text" className="form-control" />
             </div>
             <div className="form-group">
-              <label htmlFor="last">City</label>
+              <label htmlFor="address.city">City</label>
               <Field name="address.city" type="text" className="form-control" />
             </div>
             <div className="form-group">
-              <label htmlFor="last">State</label>
-              <Field
-                name="address.state"
-                type="text"
-                className="form-control"
-              />
+              <label htmlFor="address.state">State</label>
+              <Field name="address.state" type="text" className="form-control" />
             </div>
             <div className="form-group">
-              <label htmlFor="last">ZipCode</label>
-              <Field
-                name="address.zipCode"
-                type="text"
-                className="form-control"
-              />
+              <label htmlFor="address.zipCode">ZipCode</label>
+              <Field name="address.zipCode" type="text" className="form-control" />
             </div>
             <div className="form-group">
-              <label htmlFor="last">Date Of Birth</label>
+              <label htmlFor="dob">Date Of Birth</label>
               <Field name="dob" type="text" className="form-control" />
             </div>
 
@@ -121,7 +105,20 @@ import { useNavigate, useParams } from "react-router-dom";
           </Form>
         </Formik>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
+
 export default Edit;

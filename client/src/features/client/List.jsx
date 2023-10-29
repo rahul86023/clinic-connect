@@ -39,9 +39,9 @@ export const List = () => {
           <tr>
          
             <th>Name</th>
-            <th>Email</th>
-            <th>Details</th>
-            <th>Edit</th>
+           
+            <th>Read</th>
+            <th>Update</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -50,7 +50,7 @@ export const List = () => {
             <tr key={item?._id}>
             
               <td>{item?.firstName + " "+ item?.lastName}</td>
-              <td>{item?.email}</td>
+          
               <td>
                 <Link to={`details/${item?._id}`} className="text-blue-500">
                   Details

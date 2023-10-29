@@ -41,8 +41,8 @@ export const List = () => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Details</th>
-            <th>Edit</th>
+            <th>Read</th>
+            <th>Update</th>
             <th>Delete</th>
           </tr>
         </thead>
