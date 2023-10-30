@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "axios";
 
-const url = `http://localhost:5000/readallclinicians`;
+const url = `http://localhost:5000/api/v1/clinicians/readallclinicians`;
 export const listOfClinicianThunk = createAsyncThunk(
   "listOfClinicians",
   async () => {

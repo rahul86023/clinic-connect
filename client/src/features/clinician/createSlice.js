@@ -10,7 +10,7 @@ const initialState = {
 export const createClinicianThunk = createAsyncThunk(
   "createClinician",
   async (formValue) => {
-    const url = `http://localhost:5000/createclinician`;
+    const url = `http://localhost:5000/api/v1/clinicians/createclinician`;
     console.log(formValue);
     const response = await axios.post(url, formValue, {
       // headers: {

@@ -19,7 +19,7 @@ export const List = () => {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`http://localhost:5000/deleteclinician/${id}`, {
+      .delete(`http://localhost:5000/api/v1/clinicians/deleteclinician/${id}`, {
         // headers: {
         //   Accept: "application/json",
         //   "content-type": "application/json",

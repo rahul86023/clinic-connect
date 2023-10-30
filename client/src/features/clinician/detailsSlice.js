@@ -5,7 +5,7 @@ import axios from "axios";
 export const detailsOfCliniciansThunk = createAsyncThunk(
   " detailsOfAdmin",
   async (id) => {
-    const url = `http://localhost:5000/readclinician/${id}`;
+    const url = `http://localhost:5000/api/v1/clinicians/readclinician/${id}`;
 
     const response = await axios.get(url, {
       // headers: {

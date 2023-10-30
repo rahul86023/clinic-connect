@@ -10,7 +10,7 @@ const initialState = {
 export const createClientThunk = createAsyncThunk(
   "createClient",
   async (formValue) => {
-    const url = `http://localhost:5000/createclient`;
+    const url = `http://localhost:5000/api/v1/clients/createclient`;
     console.log(formValue);
     const response = await axios.post(url, formValue, {
       // headers: {
