@@ -15,7 +15,7 @@ const Navbar = () => {
   
 
   const handleSignOut = () => {
-    // Remove the token from local storage
+    // Remove the token from local
     localStorage.removeItem("token");
     navigate('/public/login');
     
