@@ -10,7 +10,7 @@ const initialState = {
 export const editClientThunk = createAsyncThunk(
   "editClient",
   async ({ id, formValue }) => {
-    const url = `http://localhost:5000/api/v1/clients/updateclient/${id}`;
+    const url = `https://clinic-connect-backend.onrender.com/api/v1/clients/updateclient/${id}`;
     console.log(formValue);
     console.log(id);
     const response = await axios.put(url, formValue, {

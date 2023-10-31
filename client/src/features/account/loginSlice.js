@@ -13,25 +13,27 @@ export const loginUser = createAsyncThunk(
   async ({ username, password }, thunkAPI) => {
     try {
       console.log("hello");
-      const response = await fetch("http://localhost:5000/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
+      const response = await fetch(
+        "https://clinic-connect-backend.onrender.com/api/v1/auth/login",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
 
-          password,
-        }),
-      });
+            password,
+          }),
+        }
+      );
       let data = await response.json();
       console.log("response", data);
       if (response.status === 200) {
         console.log("geeting token");
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", data.user.name);
-
 
         return data;
       } else {

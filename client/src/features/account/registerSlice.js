@@ -16,7 +16,7 @@ export const registerUser = createAsyncThunk(
     try {
       console.log("hello");
       const response = await fetch(
-        "http://localhost:5000/api/v1/auth/register",
+        "https://clinic-connect-backend.onrender.com/api/v1/auth/register",
         {
           method: "POST",
           headers: {

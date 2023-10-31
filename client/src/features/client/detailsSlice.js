@@ -5,7 +5,7 @@ import axios from "axios";
 export const detailsOfClientsThunk = createAsyncThunk(
   " detailsOfAdmin",
   async (id) => {
-    const url = `http://localhost:5000/api/v1/clients/readclient/${id}`;
+    const url = `https://clinic-connect-backend.onrender.com/api/v1/clients/readclient/${id}`;
 
     const response = await axios.get(url, {
       // headers: {
