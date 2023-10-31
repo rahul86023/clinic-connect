@@ -20,7 +20,7 @@ const Register = () => {
       await dispatch(registerUser({ username, name, password }));
 
       if (isSuccess) {
-        navigate('/login');
+        navigate('./login');
       }
     } catch (error) {
       setFormError(error.message);
