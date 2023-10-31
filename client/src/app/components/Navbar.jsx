@@ -17,7 +17,7 @@ const Navbar = () => {
   const handleSignOut = () => {
     // Remove the token from local
     localStorage.removeItem("token");
-    navigate('/public/login');
+    navigate('../login');
     
     // You may also want to dispatch an action to clear user data in the Redux store
     // dispatch(clearUserData()); // Replace with the actual action

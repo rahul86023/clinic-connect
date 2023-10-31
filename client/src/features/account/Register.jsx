@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {  registerUser } from './registerSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -53,7 +53,7 @@ const Register = () => {
           </li>
           <li className="mb-4 flex items-center">
                 <i />
-                <a href="./login" className="text-blue-500 hover:text-blue-600 ml-2">Already have an Account?</a>
+                <Link to="./login" className="text-blue-500 hover:text-blue-600 ml-2">Already have an Account?</Link>
               </li>
         </ul>
       </fieldset>

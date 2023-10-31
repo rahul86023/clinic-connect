@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { loginUser } from './loginSlice'; // Import the actual path to your login slice
-import { useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const Login = () => {
               </li>
               <li className="mb-4 flex items-center">
                 <i />
-                <a href="/" className="text-blue-500 hover:text-blue-600 ml-2">Don't have an Account?</a>
+                <Link to="/" className="text-blue-500 hover:text-blue-600 ml-2">Don't have an Account? </Link>
               </li>
             </ul>
           </fieldset>
