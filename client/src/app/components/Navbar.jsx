@@ -1,12 +1,31 @@
-
-
-
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate} from "react-router-dom";
 import { Navbar as RSNavbar, Nav, NavItem, NavLink as RSNavLink, NavbarText } from 'reactstrap';
+import { useSelector, useDispatch } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.css';
 
 const Navbar = () => {
+  const { userData, status, loading } = useSelector(
+    (store) => store?.user
+  );
+  console.log(userData, "userdata is printing");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+
+  const handleSignOut = () => {
+    // Remove the token from local storage
+    localStorage.removeItem("token");
+    navigate('/public/login');
+    
+    // You may also want to dispatch an action to clear user data in the Redux store
+    // dispatch(clearUserData()); // Replace with the actual action
+
+    // Redirect the user to the sign-in page or any other desired location
+    // history.push("/signin"); // If using React Router for navigation
+  };
+
   return (
     <RSNavbar color="light" light expand="md">
       <div className="container mx-auto">
@@ -29,6 +48,12 @@ const Navbar = () => {
             >
               Clinician
             </NavLink>
+          </NavItem>
+          <NavItem>
+            {userData?.name}
+          </NavItem>
+          <NavItem>
+            <button className="btn btn-link" onClick={handleSignOut}>Sign Out</button>
           </NavItem>
         </Nav>
       </div>

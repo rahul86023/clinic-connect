@@ -26,7 +26,7 @@ const connectToDatabase = async () => {
 
 connectToDatabase();
 // Include API routes
-
+app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/clients", require("./routes/clients"));
 app.use("/api/v1/clinicians", require("./routes/clinicians"));
 

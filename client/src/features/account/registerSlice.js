@@ -1,37 +1,41 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
-  userData: {},
+  username: "",
+  password: "",
+  name: "",
   isFetching: false,
   isSuccess: false,
   isError: false,
   errorMessage: "",
 };
 
-export const loginUser = createAsyncThunk(
-  "users/login",
-  async ({ username, password }, thunkAPI) => {
+export const registerUser = createAsyncThunk(
+  "users/register",
+  async ({ username, password, name }, thunkAPI) => {
     try {
       console.log("hello");
-      const response = await fetch("http://localhost:5000/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
+      const response = await fetch(
+        "http://localhost:5000/api/v1/auth/register",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
 
-          password,
-        }),
-      });
+            password,
+            name,
+          }),
+        }
+      );
       let data = await response.json();
       console.log("response", data);
       if (response.status === 200) {
         console.log("geeting token");
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", data.user.name);
-
+        //    localStorage.setItem("token", data.token);
 
         return data;
       } else {
@@ -44,8 +48,8 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-const userSlice = createSlice({
-  name: "user",
+const registerSlice = createSlice({
+  name: "register",
   initialState,
   reducers: {
     // clearState: (state) => {
@@ -55,26 +59,26 @@ const userSlice = createSlice({
     //   return state;
     // },
   },
-
   extraReducers: {
-    [loginUser.fulfilled]: (state, action) => {
-      state.userData = action.payload.user;
-
+    [registerUser.fulfilled]: (state, { payload }) => {
+      state.username = payload.email;
+      state.password = payload.password;
+      state.name = payload.name;
       state.isFetching = false;
       state.isSuccess = true;
       return state;
     },
-    [loginUser.rejected]: (state, { payload }) => {
+    [registerUser.rejected]: (state, { payload }) => {
       console.log("payload", payload);
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload.message;
     },
-    [loginUser.pending]: (state) => {
+    [registerUser.pending]: (state) => {
       state.isFetching = true;
     },
   },
 });
 
-// export const { clearState } = userSlice.actions;
-export default userSlice.reducer;
+// export const { clearState } = registerSlice.actions;
+export default registerSlice.reducer;

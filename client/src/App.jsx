@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./index.css";
+import Register from "./features/account/Register";
 import Login from "./features/account/Login";
 import { PublicLayout } from "./app/components/PublicLayout";
 import { PrivateLayout } from "./app/components/PrivateLayout";
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         {/* Top-level layout */}
         <Route path="/public" element={<PublicLayout />}>
+          <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
         </Route>
 

@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/account/loginSlice";
+import registerReducer from "../features/account/registerSlice";
 
 import detailsOfClinicianReducer from "../features/clinician/detailsSlice";
 import detailsOfClientReducer from "../features/client/detailsSlice";
@@ -14,6 +15,7 @@ import editClinicianReducer from "../features/clinician/editSlice";
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    register: registerReducer,
 
     listOfClinicians: listOfClinicianReducer,
     listOfClients: listOfClientsReducer,

@@ -1,97 +1,66 @@
-import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
-
-import { useSelector, useDispatch } from "react-redux";
-
-import { loginUser, clearState } from "./loginSlice";
-import toast from "react-hot-toast";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { loginUser } from './loginSlice'; // Import the actual path to your login slice
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { register, errors, handleSubmit } = useForm();
-  const { isFetching, isSuccess, isError, errorMessage } = useSelector(
-    (store) => store.user
-  );
 
-  const initialValues = {
-    email: "",
-    password: "",
+  const handleLogin = async (values, { setSubmitting, resetForm }) => {
+    try {
+      const action = await dispatch(loginUser({ username: values.username, password: values.password }));
+
+      if (loginUser.fulfilled.match(action)) {
+        resetForm();
+        navigate('/private/client');
+      }
+    } catch (error) {
+      // Handle login error, e.g., display an error message
+    }
   };
 
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().required("This field is required!"),
-    password: Yup.string().required("This field is required!"),
+  const validationSchema = Yup.object({
+    username: Yup.string().required('Username is required'),
+    password: Yup.string().required('Password is required'),
   });
-  const handleLogin = (formValue) => {
-    const { email, password } = formValue;
-    // setLoading(true);
-
-    dispatch(loginUser({ email, password }));
-  };
-
-  useEffect(() => {
-    dispatch(clearState());
-  }, []);
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(errorMessage);
-      dispatch(clearState());
-    }
-
-    if (isSuccess) {
-      dispatch(clearState());
-      navigate("/admin");
-    }
-  }, [isError, isSuccess]);
 
   return (
-    <div className="col-md-12 login-form">
-      <div className="card card-container">
-        <h2>Practical Resources Network</h2>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleLogin}
-        >
-          <Form>
-            <div className="form-group">
-              <label htmlFor="username">Email</label>
-              <Field name="email" type="email" className="form-control" />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="alert alert-danger"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Field name="password" type="password" className="form-control" />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="alert alert-danger"
-              />
-            </div>
-
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-block">
-                {isFetching && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
-          </Form>
-        </Formik>
-      </div>
-    </div>
+    <Formik
+      initialValues={{ username: '', password: '' }}
+      validationSchema={validationSchema}
+      onSubmit={handleLogin}
+    >
+      {() => (
+        <Form className="w-full max-w-md mx-auto">
+          <h2 className="text-3xl font-extralight text-center mb-4">Welcome Back!</h2>
+          <fieldset className="bg-white rounded p-4 shadow-md">
+            <legend className="mb-4 text-xl font-semibold">Log In</legend>
+            <ul>
+              <li className="mb-4">
+                <label htmlFor="username" className="block mb-2">Username:</label>
+                <Field type="text" id="username" name="username" required className="w-full border rounded py-2 px-3" />
+                <ErrorMessage name="username" component="div" className="text-red-600" />
+              </li>
+              <li className="mb-4">
+                <label htmlFor="password" className="block mb-2">Password:</label>
+                <Field type="password" id="password" name="password" required className="w-full border rounded py-2 px-3" />
+                <ErrorMessage name="password" component="div" className="text-red-600" />
+              </li>
+              <li className="mb-4 flex items-center">
+                <i />
+                <a href="#" className="text-blue-500 hover:text-blue-600 ml-2">Forgot Password?</a>
+              </li>
+            </ul>
+          </fieldset>
+          <button type="submit" className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+            Login
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
