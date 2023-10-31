@@ -22,9 +22,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Top-level layout */}
-        <Route path="/public" element={<PublicLayout />}>
-          <Route path="register" element={<Register />} />
+      <Route path="/" element={<PublicLayout />}>
+          {/* Set the Register component as the index route */}
+          <Route index element={<Register />} />
           <Route path="login" element={<Login />} />
         </Route>
 

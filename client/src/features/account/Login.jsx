@@ -53,6 +53,10 @@ const Login = () => {
                 <i />
                 <a href="#" className="text-blue-500 hover:text-blue-600 ml-2">Forgot Password?</a>
               </li>
+              <li className="mb-4 flex items-center">
+                <i />
+                <a href="/" className="text-blue-500 hover:text-blue-600 ml-2">Don't have an Account?</a>
+              </li>
             </ul>
           </fieldset>
           <button type="submit" className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
