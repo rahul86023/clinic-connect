@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import { Delete, Edit, Visibility } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { listOfClientThunk } from "./listSlice";
 import axios from "axios";
 
@@ -16,13 +18,7 @@ export const List = () => {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`https://clinic-connect-backend.onrender.com/api/v1/clients/deleteclient/${id}`, {
-        // headers: {
-        //   Accept: "application/json",
-        //   "content-type": "application/json",
-        //   Authorization: localStorage.getItem("token"),
-        // },
-      })
+      .delete(`https://clinic-connect-backend.onrender.com/api/v1/clients/deleteclient/${id}`)
       .then(() => dispatch(listOfClientThunk()));
   };
 
@@ -34,46 +30,58 @@ export const List = () => {
         </Link>
       </section>
       <h2 className="text-2xl font-bold">Clients List</h2>
-      <Table striped bordered hover className="mt-4">
-        <thead>
-          <tr>
-         
-            <th>Name</th>
-           
-            <th>Read</th>
-            <th>Update</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map((item) => (
-            <tr key={item?._id}>
-            
-              <td>{item?.firstName + " "+ item?.lastName}</td>
-          
-              <td>
-                <Link to={`details/${item?._id}`} className="text-blue-500">
-                  Details
-                </Link>
-              </td>
-              <td>
-                <Link to={`edit/${item?._id}`} className="text-blue-500">
-                  Edit
-                </Link>
-              </td>
-              <td>
+      <TableContainer component={Paper} className="mt-4">
+        <Table aria-label="Clients Table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Read</TableCell>
+              <TableCell>Update</TableCell>
+              <TableCell>Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {list.map((item) => (
+              <TableRow key={item?._id}>
+                <TableCell>{item?.firstName + " " + item?.lastName}</TableCell>
+                <TableCell>
                 <Button
-                  onClick={() => handleDelete(item?._id)}
-                  variant="danger"
-                  className="p-1"
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+                    component={Link}
+                    to={`details/${item?._id}`}
+                    variant="contained"
+                    color="primary"
+                    endIcon={<Visibility />}
+                  >
+                    Read
+                  </Button>
+                </TableCell>
+                <TableCell>
+                <Button
+                    component={Link}
+                    to={`edit/${item?._id}`}
+                    variant="contained"
+                    color="warning"
+                    
+                    endIcon={<Edit />}
+                  >
+                    Update
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    onClick={() => handleDelete(item?._id)}
+                    variant="contained"
+                    color="error"
+                    endIcon={<DeleteIcon />}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };

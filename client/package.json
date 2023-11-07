@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@fullcalendar/core": "^4.4.0",
     "@fullcalendar/daygrid": "^5.11.0",
     "@fullcalendar/react": "^5.11.1",
+    "@mui/icons-material": "^5.14.16",
+    "@mui/material": "^5.14.16",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",

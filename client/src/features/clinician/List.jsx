@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { listOfClinicianThunk } from "./listSlice";
 import axios from "axios";
-
+import { Delete, Edit, Visibility } from "@mui/icons-material";
 export const List = () => {
   const dispatch = useDispatch();
 
-  const { list, status, loading } = useSelector(
-    (store) => store.listOfClinicians
-  );
+  const { list, status, loading } = useSelector((store) => store.listOfClinicians);
 
   useEffect(() => {
     console.log("inside useEffect");
@@ -19,16 +17,10 @@ export const List = () => {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`https://clinic-connect-backend.onrender.com/api/v1/clinicians/deleteclinician/${id}`, {
-        // headers: {
-        //   Accept: "application/json",
-        //   "content-type": "application/json",
-        //   Authorization: localStorage.getItem("token"),
-        // },
-      })
+      .delete(`https://clinic-connect-backend.onrender.com/api/v1/clinicians/deleteclinician/${id}`)
       .then(() => dispatch(listOfClinicianThunk()));
   };
-  console.log(list);
+
   return (
     <div className="container mx-auto mt-6">
       <section className="flex justify-between items-center mb-4">
@@ -37,108 +29,57 @@ export const List = () => {
         </Link>
       </section>
       <h2 className="text-2xl font-bold">Clinician List</h2>
-      <Table striped bordered hover className="mt-4">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Read</th>
-            <th>Update</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map((item) => (
-            <tr key={item?._id}>
-              <td>{item?.firstName + " " + item?.lastName}</td>
-              <td>
-                <Link to={`details/${item?._id}`} className="text-blue-500">
-                  Details
-                </Link>
-              </td>
-              <td>
-                <Link to={`edit/${item?._id}`} className="text-blue-500">
-                  Edit
-                </Link>
-              </td>
-              <td>
-                <Button
-                  onClick={() => handleDelete(item?._id)}
-                  variant="danger"
-                  className="p-1"
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <TableContainer component={Paper} className="mt-4">
+        <Table aria-label="Clinicians Table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Read</TableCell>
+              <TableCell>Update</TableCell>
+              <TableCell>Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {list.map((item) => (
+              <TableRow key={item?._id}>
+                <TableCell>{item?.firstName + " " + item?.lastName}</TableCell>
+                <TableCell>
+                  <Button
+                    component={Link}
+                    to={`details/${item?._id}`}
+                    variant="contained"
+                    color="primary"
+                    endIcon={<Visibility />}
+                  >
+                    Read
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    component={Link}
+                    to={`edit/${item?._id}`}
+                    variant="contained"
+                    color="warning"
+                    endIcon={<Edit />}
+                  >
+                    Update
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    onClick={() => handleDelete(item?._id)}
+                    variant="contained"
+                    color="error"
+                    endIcon={<Delete />}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
-
-// import React, { useEffect } from "react";
-// import { Link } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import { Button, ListGroup, Table } from "react-bootstrap";
-// import { listOfClinicianThunk } from "./listSlice";
-// import axios from "axios";
-// export const List = () => {
-//   const dispatch = useDispatch();
-
-//   const { list, status, loading } = useSelector(
-//     (store) => store.listOfClinicians
-//   );
-
-//   useEffect(() => {
-//     console.log("inside useffect");
-//     dispatch(listOfClinicianThunk());
-//   }, []);
-
-//   const handleDelete = async (id) => {
-//     await axios
-//       .delete(`http://localhost:5000/deleteclinician/${id}`, {
-//         // headers: {
-//         //   Accept: "application/json",
-//         //   "content-type": "application/json",
-//         //   Authorization: localStorage.getItem("token"),
-//         // },
-//       })
-//       .then(() => dispatch(listOfClinicianThunk()));
-//   };
-//   console.log(list);
-//   return (
-//     <>
-//       <section className="section">
-//         <Link to="create" className="btn">
-//           Create Clinician
-//         </Link>
-//       </section>
-//       <h2>Clinician List</h2>
-//       <Table striped bordered hover>
-//         <thead>
-//           <tr>
-//             <th>Name</th>
-
-//             <th>Details</th>
-//             <th>Edit</th>
-//             <th>Delete</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {list.map((item) => (
-//             <tr key={item?._id}>
-//               <td>{item?.firstName + item?.lastName}</td>
-
-//               <td>{<Link to={`details/${item?._id}`}>Details</Link>}</td>
-//               <td>{<Link to={`edit/${item?._id}`}>Edit</Link>}</td>
-//               <td>
-//                 <Button onClick={() => handleDelete(item?._id)}>Delete</Button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </Table>
-//     </>
-//   );
-// };
