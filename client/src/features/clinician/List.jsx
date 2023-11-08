@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from "@mui/material";
 import { listOfClinicianThunk } from "./listSlice";
+import IconButton from "@mui/material/IconButton";
 import axios from "axios";
 import { Delete, Edit, Visibility } from "@mui/icons-material";
+
 export const List = () => {
   const dispatch = useDispatch();
 
@@ -23,14 +25,24 @@ export const List = () => {
 
   return (
     <div className="container mx-auto mt-6">
+<Typography variant="h4" component="h2" align="center" sx={{ textDecoration: 'underline' }}>
+        Clinicians List
+      </Typography>
       <section className="flex justify-between items-center mb-4">
-        <Link to="create" className="btn btn-primary">
-          Create Clinician
-        </Link>
+       
+        <Button
+                    component={Link}
+                    to={"create"}
+                    variant="contained"
+                    color="primary"
+                 
+                  >
+                       Create Clinician
+                  </Button>
       </section>
-      <h2 className="text-2xl font-bold">Clinician List</h2>
+     
       <TableContainer component={Paper} className="mt-4">
-        <Table aria-label="Clinicians Table">
+        <Table aria-label="Clients Table">
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -44,36 +56,36 @@ export const List = () => {
               <TableRow key={item?._id}>
                 <TableCell>{item?.firstName + " " + item?.lastName}</TableCell>
                 <TableCell>
-                  <Button
-                    component={Link}
-                    to={`details/${item?._id}`}
-                    variant="contained"
-                    color="primary"
-                    endIcon={<Visibility />}
+              
+                  <IconButton 
+                   component={Link}
+                     to={`details/${item?._id}`}
+                  color="primary"
                   >
-                    Read
-                  </Button>
+        <Visibility />
+      </IconButton>
                 </TableCell>
                 <TableCell>
-                  <Button
-                    component={Link}
-                    to={`edit/${item?._id}`}
-                    variant="contained"
-                    color="warning"
-                    endIcon={<Edit />}
+              
+                  <IconButton 
+                   component={Link}
+                   to={`edit/${item?._id}`}
+                  color="warning"
                   >
-                    Update
-                  </Button>
+        <Edit />
+      </IconButton>
                 </TableCell>
                 <TableCell>
-                  <Button
-                    onClick={() => handleDelete(item?._id)}
-                    variant="contained"
-                    color="error"
-                    endIcon={<Delete />}
+                 
+                  <IconButton 
+                   onClick={() => handleDelete(item?._id)}
+              
+               
+                  color="error"
                   >
-                    Delete
-                  </Button>
+        <Delete />
+      </IconButton>
+                  
                 </TableCell>
               </TableRow>
             ))}
