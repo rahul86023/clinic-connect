@@ -38,7 +38,7 @@ const Navbar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Hidden smUp>
+        <Hidden mdUp>
           <IconButton
             edge="start"
             color="inherit"
@@ -49,11 +49,12 @@ const Navbar = () => {
           </IconButton>
         </Hidden>
 
+        {/* Show "Clinic Connect" text always */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Clinic Connect
         </Typography>
 
-        <Hidden xsDown>
+        <Hidden smDown>
           <div style={{ display: 'flex' }}>
             <NavLink to="/private/client" style={{ textDecoration: 'none', color: 'white' }}>
               <Typography variant="h6" component="div" style={{ marginRight: '16px' }}>
@@ -68,9 +69,9 @@ const Navbar = () => {
           </div>
         </Hidden>
 
-        <Hidden smUp>
+        <Hidden mdUp>
           <Drawer
-            anchor="right"
+            anchor="left"
             open={menuOpen}
             onClose={toggleMenu}
           >
@@ -81,24 +82,24 @@ const Navbar = () => {
               <ListItem button component={NavLink} to="/private/clinician" onClick={toggleMenu}>
                 <ListItemText primary="Clinician" />
               </ListItem>
-              <ListItem button  onClick={toggleMenu}>
+              <ListItem button onClick={toggleMenu}>
                 <ListItemText primary={userData?.name} />
               </ListItem>
-              {/* <ListItem button component={NavLink} to="/private/clinician" onClick={toggleMenu}> */}
-              <Button
+              <ListItem button onClick={handleSignOut}>
+                {/* <ListItemText primary="Sign Out" /> */}
+                <Button
               onClick={handleSignOut}
               variant="contained"
               color="error"
             >
               Sign Out
             </Button>
-              {/* </ListItem> */}
-              
+              </ListItem>
             </List>
           </Drawer>
         </Hidden>
 
-        <Hidden xsDown>
+        <Hidden smDown>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Typography variant="body1" sx={{ marginRight: 2 }}>
               {userData?.name}
@@ -118,4 +119,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
