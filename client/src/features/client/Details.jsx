@@ -1,37 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailsOfClientsThunk } from "./detailsSlice";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
 export const Details = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { client, status, loading } = useSelector(
-    (store) => store.detailsOfClient
-  );
+  const { client, status, loading } = useSelector((store) => store.detailsOfClient);
 
   useEffect(() => {
     dispatch(detailsOfClientsThunk(id));
   }, []);
 
   return (
-    <div className="max-w-screen-sm mx-auto my-4 p-4 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Details Of Client</h2>
+    <Container maxWidth="sm" className="text-center">
+      <div className="max-w-screen-sm mx-auto my-4 p-4 bg-white shadow-lg rounded-lg text-left">
+        <Typography variant="h4" component="h2" gutterBottom underline="true">
+          Details Of Client
+        </Typography>
 
-      <div>
-        <p className="mb-2">
-          Name: {client?.firstName} {client?.lastName}
-        </p>
-        <p className="mb-2">Primary Phone Number: {client?.primaryPhoneNumber}</p>
-        <p className="mb-2">Address: {client?.address?.address1}</p>
-        <p className="mb-2">City: {client?.address?.city}</p>
-        <p className="mb-2">State: {client?.address?.state}</p>
-        <p className="mb-2">Zip Code: {client?.address?.zipCode}</p>
-        <p className="mb-2">Date Of Birth: {client?.dob}</p>
-        <p className="mb-2">Default Location: {client?.location?.name}</p>
+        <div className="text-left">
+          <p className="mb-2">
+            <strong>Name:</strong> {client?.firstName} {client?.lastName}
+          </p>
+          <p className="mb-2">
+            <strong>Primary Phone Number:</strong> {client?.primaryPhoneNumber}
+          </p>
+          <p className="mb-2">
+            <strong>Address:</strong> {client?.address?.address1}
+          </p>
+          <p className="mb-2">
+            <strong>City:</strong> {client?.address?.city}
+          </p>
+          <p className="mb-2">
+            <strong>State:</strong> {client?.address?.state}
+          </p>
+          <p className="mb-2">
+            <strong>Zip Code:</strong> {client?.address?.zipCode}
+          </p>
+          <p className="mb-2">
+            <strong>Date Of Birth:</strong> {client?.dob}
+          </p>
+          <p className="mb-2">
+            <strong>Default Location:</strong> {client?.location?.name}
+          </p>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
