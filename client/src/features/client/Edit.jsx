@@ -7,6 +7,14 @@ import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Container,
+  Grid,
+} from "@mui/material";
 
 const Edit = () => {
   const dispatch = useDispatch();
@@ -37,7 +45,6 @@ const Edit = () => {
   });
 
   const handleEditingClient = (formValue) => {
-    console.log(formValue);
     dispatch(editClientThunk({ id, formValue }))
       .then(() => {
         toast.success("Details Updated Successfully");
@@ -49,63 +56,139 @@ const Edit = () => {
   };
 
   return (
-    <div className="col-md-12 login-form">
-      <div className="card card-container">
-        <h2>Edit Client Details</h2>
-        <Formik
-          initialValues={client}
-          validationSchema={validationSchema}
-          onSubmit={handleEditingClient}
-          enableReinitialize={true}
-        >
-          <Form>
-            <div className="form-group">
-              <label htmlFor="firstName">First Name</label>
-              <Field name="firstName" type="text" className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="lastName">Last Name</label>
-              <Field name="lastName" type="text" className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="gender">Gender</label>
-              <Field name="gender" type="text" className="form-control" />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="primaryPhoneNumber">Primary Phone No.</label>
-              <Field name="primaryPhoneNumber" type="text" className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="address.address1">Address1</label>
-              <Field name="address.address1" type="text" className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="address.city">City</label>
-              <Field name="address.city" type="text" className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="address.state">State</label>
-              <Field name="address.state" type="text" className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="address.zipCode">ZipCode</label>
-              <Field name="address.zipCode" type="text" className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="dob">Date Of Birth</label>
-              <Field name="dob" type="text" className="form-control" />
-            </div>
-
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-block">
-                <span>Submit</span>
-              </button>
-            </div>
-          </Form>
-        </Formik>
-      </div>
-
+    <Container maxWidth="lg">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <div className="card card-container bg-white p-6 rounded-md shadow-md">
+          <Typography
+            variant="h4"
+            component="h2"
+            align="center"
+            gutterBottom
+            sx={{ textDecoration: "underline" }}
+          >
+            Edit Client Details
+          </Typography>
+          <Formik
+            initialValues={client}
+            validationSchema={validationSchema}
+            onSubmit={handleEditingClient}
+            enableReinitialize={true}
+          >
+            <Form>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    label="First Name"
+                    name="firstName"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Last Name"
+                    name="lastName"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Gender"
+                    name="gender"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Primary Phone No."
+                    name="primaryPhoneNumber"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Address1"
+                    name="address.address1"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="City"
+                    name="address.city"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="State"
+                    name="address.state"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="ZipCode"
+                    name="address.zipCode"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Date Of Birth"
+                    name="dob"
+                    type="text"
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+              </Grid>
+            </Form>
+          </Formik>
+        </div>
+      </Box>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -117,7 +200,7 @@ const Edit = () => {
         draggable
         pauseOnHover
       />
-    </div>
+    </Container>
   );
 };
 

@@ -51,8 +51,14 @@ const Navbar = () => {
 
         {/* Show "Clinic Connect" text always */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Clinic Connect
-        </Typography>
+        <NavLink to="../private/client" style={{ display: 'flex', alignItems: 'center' }}>
+          <div 
+     //     style={{ backgroundColor: 'white', padding: '5px', borderRadius: '5px' }}
+          >
+            <img src="/img/clinic-connect.png" alt="Clinic Connect" style={{ height: '85px', borderRadius: '0px' }} />
+          </div>
+        </NavLink>
+      </Typography>
 
         <Hidden smDown>
           <div style={{ display: 'flex' }}>
