@@ -11,7 +11,7 @@ export const PrivateLayout = () => {
     <>
       <Navbar />
       <Outlet />
-      <Footer/>
+      {/* <Footer/> */}
     </>
   );
 };
