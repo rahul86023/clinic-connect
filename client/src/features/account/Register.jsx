@@ -29,7 +29,7 @@ const Register = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <img src="/img/clinic-connect.png" alt="Clinic Connect" style={{ height: '100px', borderRadius: '0px', marginTop: '-20px' }} />
+      <img src="/img/clinic-connect.png" alt="Clinic Connect" style={{ height: '100px', borderRadius: '0px', marginTop: '0px' }} />
 
       <form className="w-full max-w-md mx-auto mt-8" onSubmit={handleRegister}>
         <h2 className="text-3xl font-extralight text-center mb-4">Sign Up!</h2>

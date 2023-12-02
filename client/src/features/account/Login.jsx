@@ -34,7 +34,7 @@ const Login = () => {
       onSubmit={handleLogin}
     >
       {() => (
-        <Form className="w-full max-w-md mx-auto">
+        <><img src="/img/clinic-connect.png" alt="Clinic Connect" style={{ height: '100px', borderRadius: '0px', marginTop: '0px', marginBottom: '20px', marginLeft: 'auto', marginRight: 'auto', display: 'block' }} /><Form className="w-full max-w-md mx-auto">
           <h2 className="text-3xl font-extralight text-center mb-4">Welcome Back!</h2>
           <fieldset className="bg-white rounded p-4 shadow-md">
             <legend className="mb-4 text-xl font-semibold">Log In</legend>
@@ -62,7 +62,7 @@ const Login = () => {
           <button type="submit" className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
             Login
           </button>
-        </Form>
+        </Form></>
       )}
     </Formik>
   );
