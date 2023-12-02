@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { createClientThunk } from "./createSlice";
+import { ToastContainer, toast } from "react-toastify";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
@@ -89,8 +90,15 @@ const Create = () => {
 
   const handleCreatingAdmin = (formValue) => {
     console.log(formValue);
-    dispatch(createClientThunk(formValue));
+    dispatch(createClientThunk(formValue)).then(() => {
+      toast.success("Details Updated Successfully");
+      navigate("/private/client");
+    })
+    .catch((error) => {
+      toast.error("An error occurred while updating details: " + error.message);
+    });
   };
+ 
 
   return (
     <div className="col-md-12 login-form">
