@@ -59,7 +59,7 @@ const Edit = () => {
   return (
     <div className="col-md-12 login-form">
       <div className="card card-container bg-white p-6 rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">New Client Details</h2>
+        <h2 className="text-2xl font-semibold mb-4">Edit Client Details</h2>
         <Formik
           initialValues={client}
           enableReinitialize  // Allow the form to reinitialize when initialValues change
