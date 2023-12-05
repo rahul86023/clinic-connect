@@ -61,6 +61,11 @@ const Register = () => {
         <i />
         <Link to="./login" className="text-blue-500 hover:text-blue-600 ml-2">Already have an Account?</Link>
       </div>
+      <p>
+    <a href="
+http://localhost:5000/api/v1/auth/google-login
+">Login with google</a>
+</p>
     </div>
   );
 };
